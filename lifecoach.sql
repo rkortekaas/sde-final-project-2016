@@ -2,13 +2,11 @@
 -- Author:        Cristhian Parra
 -- Caption:       New Model
 -- Project:       Name of the project
--- Changed:       2017-01-16 20:03
+-- Changed:       2017-01-18 15:58
 -- Created:       2013-11-19 15:30
 PRAGMA foreign_keys = OFF;
 
 -- Schema: lifecoach
--- ATTACH "lifecoach.sdb" AS "lifecoach";
--- BEGIN;
 CREATE TABLE "MeasureDefinition"(
   "idMeasureDef" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   "measureName" VARCHAR(45),
@@ -29,7 +27,7 @@ CREATE TABLE "Person"(
   "email" TEXT,
   "username" VARCHAR(45)
 );
-INSERT INTO "Person"("idPerson","name","lastname","birthdate","email","username") VALUES(1, 'Chuck', 'Norris', '1945-01-01', 'chuck.norris@gmail.com', 'chuck');
+INSERT INTO "Person"("idPerson","name","lastname","birthdate","email","username") VALUES(1, 'Sarmad', 'Norris', '1945-01-01', 'chuck.norris@gmail.com', 'ganjasmoker01');
 CREATE TABLE "Goals"(
   "idGoal" INTEGER PRIMARY KEY NOT NULL,
   "idPerson" INTEGER NOT NULL,
@@ -96,8 +94,23 @@ CREATE TABLE "Nutrition"(
     REFERENCES "Person"("idPerson")
 );
 CREATE INDEX "Nutrition.fk_Nutrition_Person1_idx" ON "Nutrition" ("idPerson");
-CREATE TABLE "FoodIntake"(
-  "idFoodIntake" INTEGER PRIMARY KEY NOT NULL,
+CREATE TABLE "LifeStatus"(
+  "idMeasure" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  "idPerson" INTEGER NOT NULL,
+  "idMeasureDef" INTEGER NOT NULL,
+  "value" TEXT,
+  CONSTRAINT "fk_LifeStatus_Person1"
+    FOREIGN KEY("idPerson")
+    REFERENCES "Person"("idPerson"),
+  CONSTRAINT "fk_LifeStatus_MeasureDefinition1"
+    FOREIGN KEY("idMeasureDef")
+    REFERENCES "MeasureDefinition"("idMeasureDef")
+);
+CREATE INDEX "LifeStatus.fk_LifeStatus_Person1_idx" ON "LifeStatus" ("idPerson");
+CREATE INDEX "LifeStatus.fk_LifeStatus_MeasureDefinition1_idx" ON "LifeStatus" ("idMeasureDef");
+INSERT INTO "LifeStatus"("idMeasure","idPerson","idMeasureDef","value") VALUES(1, 1, 1, '72.3');
+CREATE TABLE "Diet"(
+  "idDiet" INTEGER PRIMARY KEY NOT NULL,
   "idNutrition" INTEGER NOT NULL,
   "name" VARCHAR(45),
   "calories" INTEGER,
@@ -106,20 +119,5 @@ CREATE TABLE "FoodIntake"(
     FOREIGN KEY("idNutrition")
     REFERENCES "Nutrition"("idNutrition")
 );
-CREATE INDEX "FoodIntake.fk_Food_NutritionIntake1_idx" ON "FoodIntake" ("idNutrition");
-CREATE TABLE "LifeStatus"(
-  "idMeasure" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-  "idMeasureDef" INTEGER NOT NULL,
-  "idPerson" INTEGER NOT NULL,
-  "value" TEXT,
-  CONSTRAINT "fk_HealthMeasure_MeasureDefinition"
-    FOREIGN KEY("idMeasureDef")
-    REFERENCES "MeasureDefinition"("idMeasureDef"),
-  CONSTRAINT "fk_LifeStatus_Person1"
-    FOREIGN KEY("idPerson")
-    REFERENCES "Person"("idPerson")
-);
-CREATE INDEX "LifeStatus.fk_HealthMeasure_MeasureDefinition_idx" ON "LifeStatus" ("idMeasureDef");
-CREATE INDEX "LifeStatus.fk_LifeStatus_Person1_idx" ON "LifeStatus" ("idPerson");
-INSERT INTO "LifeStatus"("idMeasure","idMeasureDef","idPerson","value") VALUES(1, 1, 1, '72.3');
+CREATE INDEX "Diet.fk_Food_NutritionIntake1_idx" ON "Diet" ("idNutrition");
 COMMIT;

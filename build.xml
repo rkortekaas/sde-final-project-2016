@@ -96,6 +96,24 @@
 		<echo message="${src.dir}/${xjc.package} has been deleted" />
 	</target>
 	
+	<target name="compile">
+		<echo message="Compile target has been called" />
+		<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="lib.path.id" includeAntRuntime="false">
+		</javac>
+		<copy todir="${build.dir}" overwrite="true">
+			<fileset dir="${src.dir}">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+		<!-- The following operation mkdir and copy might change with the time (November 2016)-->
+		<mkdir dir="${web.dir}/WebContent/WEB-INF/classes/META-INF" />
+		<copy todir="${web.dir}/WebContent/WEB-INF/classes/META-INF" overwrite="true">
+			<fileset dir="${src.dir}/META-INF">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+	</target>
+	
 	<target name="install" depends="clean, init">
 		<echo message="Compile target has been called" />
 	    <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="lib.path.id" includeAntRuntime="false">
