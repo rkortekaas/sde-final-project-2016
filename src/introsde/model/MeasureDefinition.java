@@ -26,12 +26,17 @@ public class MeasureDefinition implements Serializable {
 	@Column(name="measureType")
 	private String measureType;
 	
+	public MeasureDefinition() {
+		
+	}
+	
 	public int getIdMeasureDef() {
 		return idMeasureDef;
 	}
 	public void setIdMeasureDef(int idMeasureDef) {
 		this.idMeasureDef = idMeasureDef;
 	}
+	
 	public String getMeasureName() {
 		return measureName;
 	}
@@ -44,6 +49,9 @@ public class MeasureDefinition implements Serializable {
 	public void setMeasureType(String measureType) {
 		this.measureType = measureType;
 	}
+	
+	@OneToMany(mappedBy="measureDefinition")
+	private List<LifeStatus> lifestatus;
 	
 	// querying the database
 	

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -12,7 +13,7 @@ import introsde.dao.LifeCoachDao;
 @Entity // indicates that this class is an entity to persist in DB
 @Table(name="LifeStatus") // to what table must be persisted
 @NamedQuery(name="LifeStatus.findAll", query="SELECT l FROM LifeStatus l") // query is executed for getting all lifestatus's
-@XmlRootElement
+@XmlRootElement(name="Measure")
 public class LifeStatus implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -56,6 +57,11 @@ public class LifeStatus implements Serializable {
 
 	public MeasureDefinition getMeasureDefinition() {
 		return measureDefinition;
+	}
+	
+	@XmlElement(name = "measureName")
+	public String getMeasureDefName() {
+		return measureDefinition.getMeasureName();
 	}
 
 	public void setMeasureDefinition(MeasureDefinition param) {

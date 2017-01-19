@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -74,7 +75,8 @@ public class Person implements Serializable {
 	@OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<LifeStatus> lifeStatus;
 	
-	@XmlElementWrapper(name = "Measurements")
+	@XmlElementWrapper(name = "healthProfile")
+	@XmlElement(name="Measure")
 	public List<LifeStatus> getLifeStatus() {
 		return lifeStatus;
 	}
@@ -102,6 +104,11 @@ public class Person implements Serializable {
 		em.persist(p);
 		tx.commit();
 		LifeCoachDao.instance.closeConnections(em);
+		
+		for(int i = 0;i<p.getLifeStatus().size();i++){
+        	p.getLifeStatus().get(i).setPerson(p);
+        	LifeStatus.updateLifeStatus(p.getLifeStatus().get(i));
+        }
 		return p;
 	}
 	
