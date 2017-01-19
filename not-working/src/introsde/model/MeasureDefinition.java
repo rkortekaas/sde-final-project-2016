@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.dao.LifeCoachDao;
+import introsde.model.LifeStatus;
 
 @Entity
 @Table(name="MeasureDefinition")
@@ -27,7 +29,6 @@ public class MeasureDefinition implements Serializable {
 	private String measureType;
 	
 	public MeasureDefinition() {
-		
 	}
 	
 	public int getIdMeasureDef() {
@@ -52,6 +53,15 @@ public class MeasureDefinition implements Serializable {
 	
 	@OneToMany(mappedBy="measureDefinition")
 	private List<LifeStatus> lifestatus;
+	
+	@XmlTransient
+	public List<LifeStatus> getLifestatus() {
+		return lifestatus;
+	}
+
+	public void setLifestatus(List<LifeStatus> lifestatus) {
+		this.lifestatus = lifestatus;
+	}
 	
 	// querying the database
 	

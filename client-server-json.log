@@ -1,0 +1,261 @@
+Request #1: GET /person Accept: application/json
+=> Result: OK
+=> HTTP Status: 200
+[ {
+  "idPerson" : 1,
+  "firstname" : "Jon",
+  "lastname" : "Norris",
+  "birthdate" : "31/12/1944",
+  "username" : "chuck.norris",
+  "email" : "chuck.norris@gmail.com",
+  "measureType" : [ {
+    "value" : "72",
+    "measure" : "weight"
+  }, {
+    "value" : "72",
+    "measure" : "height"
+  } ]
+}, {
+  "idPerson" : 2,
+  "firstname" : "Pallino",
+  "lastname" : "Pinco",
+  "birthdate" : "16/07/1964",
+  "username" : "pallino.panco",
+  "email" : "pallino.panco@gmail.com",
+  "measureType" : [ {
+    "value" : "85",
+    "measure" : "weight"
+  }, {
+    "value" : "1.65",
+    "measure" : "height"
+  }, {
+    "value" : "120",
+    "measure" : "blood pressure"
+  } ]
+}, {
+  "idPerson" : 3,
+  "firstname" : "Pappo",
+  "lastname" : "Pippo",
+  "birthdate" : "08/12/1959",
+  "username" : "pippo",
+  "email" : "pippo.pappo@gmail.com",
+  "measureType" : [ {
+    "value" : "87",
+    "measure" : "weight"
+  }, {
+    "value" : "1.68",
+    "measure" : "height"
+  } ]
+}, {
+  "idPerson" : 4,
+  "firstname" : "Sara",
+  "lastname" : "Rossi",
+  "birthdate" : "09/11/1993",
+  "username" : "sara",
+  "email" : "sara@gmail.com",
+  "measureType" : [ {
+    "value" : "55",
+    "measure" : "weight"
+  }, {
+    "value" : "1.62",
+    "measure" : "height"
+  } ]
+}, {
+  "idPerson" : 5,
+  "firstname" : "John",
+  "lastname" : "Doe",
+  "birthdate" : "19/10/1985",
+  "username" : "jdoe",
+  "email" : "johndoe@gmail.com",
+  "measureType" : [ {
+    "value" : "93",
+    "measure" : "weight"
+  }, {
+    "value" : "1.90",
+    "measure" : "height"
+  } ]
+}, {
+  "idPerson" : 6,
+  "firstname" : "Tizio",
+  "lastname" : "Caio",
+  "birthdate" : "31/12/1979",
+  "username" : "caioT",
+  "email" : "tc@gmail.com",
+  "measureType" : [ {
+    "value" : "1.79",
+    "measure" : "height"
+  }, {
+    "value" : "69",
+    "measure" : "weight"
+  } ]
+} ]
+Request #2: GET /person/1 Accept: application/json
+=> Result: OK
+=> HTTP Status: 200
+{
+  "idPerson" : 1,
+  "firstname" : "Jon",
+  "lastname" : "Norris",
+  "birthdate" : "31/12/1944",
+  "username" : "chuck.norris",
+  "email" : "chuck.norris@gmail.com",
+  "measureType" : [ {
+    "value" : "72",
+    "measure" : "weight"
+  }, {
+    "value" : "72",
+    "measure" : "height"
+  } ]
+}
+Request #3: PUT /person/1 Accept: application/json Content-Type:  application/json
+=> Result: OK
+=> HTTP Status: 200
+{
+  "idPerson" : 1,
+  "firstname" : "Jon",
+  "lastname" : "Norris",
+  "birthdate" : "31/12/1944",
+  "username" : "chuck.norris",
+  "email" : "chuck.norris@gmail.com",
+  "measureType" : [ {
+    "value" : "72",
+    "measure" : "weight"
+  }, {
+    "value" : "72",
+    "measure" : "height"
+  } ]
+}
+Request #4: POST /person Accept: application/json Content-Type:  application/json
+=> Result: OK
+=> HTTP Status: 200
+{
+  "idPerson" : 2355,
+  "firstname" : "Chuck",
+  "lastname" : "Norris",
+  "birthdate" : "01/01/1945",
+  "username" : null,
+  "email" : null,
+  "measureType" : [ {
+    "value" : "78.9",
+    "measure" : "weight"
+  }, {
+    "value" : "172",
+    "measure" : "height"
+  } ]
+}
+Request #5: DELETE /person/2355 Accept: application/json
+=> Result: OK
+=> HTTP Status: 204
+null
+Request #6: GET /measureTypes Accept: application/json
+=> Result: OK
+=> HTTP Status: 200
+[ {
+  "value" : "weight"
+}, {
+  "value" : "height"
+}, {
+  "value" : "steps"
+}, {
+  "value" : "blood pressure"
+}, {
+  "value" : "heart rate"
+}, {
+  "value" : "bmi"
+} ]
+Request #7: GET /person/1/height Accept: application/json
+=> Result: OK
+=> HTTP Status: 200
+[ {
+  "value" : "82",
+  "measureDefinition" : {
+    "value" : "height"
+  },
+  "mid" : 2,
+  "created" : "2016-11-15T23:00:00.000Z"
+}, {
+  "value" : "1.73",
+  "measureDefinition" : {
+    "value" : "height"
+  },
+  "mid" : 1354
+} ]
+Request #8: GET /person/1/height/2 Accept: application/json
+=> Result: OK
+=> HTTP Status: 200
+{
+  "value" : "82",
+  "measureDefinition" : {
+    "value" : "height"
+  },
+  "mid" : 2,
+  "created" : "2016-11-15T23:00:00.000Z"
+}
+Request #9: POST /person/1/height Accept: application/json Content-Type:  application/json
+=> Result: OK
+=> HTTP Status: 200
+{
+  "value" : "72",
+  "measure" : "height"
+}
+Request #10: PUT /person/1/height/2 Accept: application/json Content-Type:  application/json
+=> Result: OK
+=> HTTP Status: 200
+{
+  "value" : "82",
+  "measureDefinition" : {
+    "value" : "height"
+  },
+  "mid" : 2,
+  "created" : "2016-11-15T23:00:00.000Z"
+}
+Request #11: GET /person/1/weight?before=20-11-2016&after=10-11-1990 Accept: application/json
+=> Result: OK
+=> HTTP Status: 200
+[ {
+  "value" : "83",
+  "measureDefinition" : {
+    "value" : "weight"
+  },
+  "mid" : 1,
+  "created" : "2016-11-15T23:00:00.000Z"
+}, {
+  "value" : "75",
+  "measureDefinition" : {
+    "value" : "weight"
+  },
+  "mid" : 3,
+  "created" : "2015-06-14T22:00:00.000Z"
+} ]
+Request #12: GET /person?measureType=weight&max=95&min=85 Accept: application/json
+=> Result: OK
+=> HTTP Status: 200
+[ {
+  "idPerson" : 3,
+  "firstname" : "Pappo",
+  "lastname" : "Pippo",
+  "birthdate" : "08/12/1959",
+  "username" : "pippo",
+  "email" : "pippo.pappo@gmail.com",
+  "measureType" : [ {
+    "value" : "87",
+    "measure" : "weight"
+  }, {
+    "value" : "1.68",
+    "measure" : "height"
+  } ]
+}, {
+  "idPerson" : 5,
+  "firstname" : "John",
+  "lastname" : "Doe",
+  "birthdate" : "19/10/1985",
+  "username" : "jdoe",
+  "email" : "johndoe@gmail.com",
+  "measureType" : [ {
+    "value" : "93",
+    "measure" : "weight"
+  }, {
+    "value" : "1.90",
+    "measure" : "height"
+  } ]
+} ]

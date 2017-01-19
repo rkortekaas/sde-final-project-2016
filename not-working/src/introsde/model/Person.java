@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import introsde.dao.LifeCoachDao;
+import introsde.model.LifeStatus;
 
 @Entity // indicates that this class is an entity to persist in DB
 @Table(name="Person") // to what table must be persisted

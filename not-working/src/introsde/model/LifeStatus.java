@@ -38,7 +38,8 @@ public class LifeStatus implements Serializable {
 	
 	public LifeStatus() {
 	}
-
+	
+	 @XmlTransient
 	public int getIdMeasure() {
 		return this.idMeasure;
 	}
@@ -55,13 +56,9 @@ public class LifeStatus implements Serializable {
 		this.value = value;
 	}
 
+	@XmlElement(name = "measureDef")
 	public MeasureDefinition getMeasureDefinition() {
 		return measureDefinition;
-	}
-	
-	@XmlElement(name = "measureName")
-	public String getMeasureDefName() {
-		return measureDefinition.getMeasureName();
 	}
 
 	public void setMeasureDefinition(MeasureDefinition param) {
