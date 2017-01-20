@@ -14,7 +14,7 @@ CREATE TABLE "Person"(
   "idPerson" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   "name" VARCHAR(255),
   "lastname" VARCHAR(255),
-  "birthdate" DATETIME,
+  "birthdate" DATE,
   "email" TEXT,
   "username" VARCHAR(45)
 );
@@ -35,8 +35,10 @@ CREATE TABLE "Activity"(
   "idActivity" INTEGER PRIMARY KEY NOT NULL,
   "idPerson" INTEGER NOT NULL,
   "name" VARCHAR(45),
-  "Description" TEXT(500),
-  "Date" DATE,
+  "type" VARCHAR(45),
+  "area" VARCHAR(45),
+  "description" TEXT(500),
+  "date" DATE,
   CONSTRAINT "fk_Activity_Person1"
     FOREIGN KEY("idPerson")
     REFERENCES "Person"("idPerson")
@@ -87,8 +89,8 @@ CREATE TABLE "Nutrition"(
 CREATE INDEX "Nutrition.fk_Nutrition_Person1_idx" ON "Nutrition" ("idPerson");
 CREATE TABLE "LifeStatus"(
   "idMeasure" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-  "idPerson" INTEGER,
-  "idMeasureDef" INTEGER,
+  "idPerson" INTEGER NOT NULL,
+  "idMeasureDef" INTEGER NOT NULL,
   "value" TEXT,
   CONSTRAINT "fk_LifeStatus_Person1"
     FOREIGN KEY("idPerson")

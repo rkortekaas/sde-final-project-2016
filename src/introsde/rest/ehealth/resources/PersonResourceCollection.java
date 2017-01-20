@@ -90,4 +90,5 @@ public class PersonResourceCollection {
     public HistoryResource getPerson(@PathParam("personId") int id,@PathParam("measureType") String type, @PathParam("mid") int mid) {
         return new HistoryResource(uriInfo, request, id,type,mid);
     }
+    
 }

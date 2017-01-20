@@ -55,8 +55,6 @@ public class Person implements Serializable {
 	@Column(name="\"idPerson\"")
 	private int idPerson;
 
-	
-
 	//bi-directional many-to-one association to HealthMeasureHistory
 	@OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<HealthMeasureHistory> healthMeasureHistories;

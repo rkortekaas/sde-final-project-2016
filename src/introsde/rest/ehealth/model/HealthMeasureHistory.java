@@ -156,32 +156,36 @@ public class HealthMeasureHistory implements Serializable {
     public static LifeStatus saveHistory(HealthMeasureHistory h, int id,String type) throws ParseException {
     	LifeStatus last = LifeStatus.getLastLifeStatus(id, type);
     	Person p =Person.getPersonById(id);
-    	// create new History
-    	if (last!= null){
-	    	HealthMeasureHistory newHistory = new HealthMeasureHistory();
-	    	newHistory.setMeasureDefinition(last.getMeasureDef());
-	    	newHistory.setPerson(p);
-	    	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			newHistory.setTimestamp(sdf.format(new Date()));
-	    	newHistory.setValue(last.getValue());
-	    	LifeStatus.removeLifeStatus(last);
-	        EntityManager em = LifeCoachDao.instance.createEntityManager();
-	        EntityTransaction tx = em.getTransaction();
-	        tx.begin();
-	        em.persist(newHistory);
-	        tx.commit();
-	        LifeCoachDao.instance.closeConnections(em);
+
+    	if(last!=null) {
+    		LifeStatus.removeLifeStatus(last);
     	}
-        // h is a new value in the Lifestatus
-    	LifeStatus nuovo = new LifeStatus();    	
-    	nuovo.setPerson(p);    	
-    	nuovo.setMeasureDef(MeasureDefinition.getByType(type));    	
-    	nuovo.setValue(h.getValue()); 
-    	LifeStatus ls = LifeStatus.saveLifeStatus(nuovo);
-    	HealthMeasureHistory.refreshHealthMeasureHistory(p);
+    	// create new lifestatus
+    	LifeStatus nieuw = new LifeStatus();    	
+    	nieuw.setPerson(p);    	
+    	nieuw.setMeasureDef(MeasureDefinition.getByType(type));    	
+    	nieuw.setValue(h.getValue()); 
+    	LifeStatus ls = LifeStatus.saveLifeStatus(nieuw); // persist lifestatus
     	LifeStatus.refreshLifeStatus(p);
-    	return ls;
-       
+    	
+    	// create new history    	
+    	HealthMeasureHistory newHistory = new HealthMeasureHistory();
+	    newHistory.setMeasureDefinition(ls.getMeasureDef());
+	    newHistory.setPerson(p);
+	    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		newHistory.setTimestamp(sdf.format(new Date()));
+	    newHistory.setValue(ls.getValue());
+	    HealthMeasureHistory.refreshHealthMeasureHistory(p);
+	    
+	    // persist history	    
+	    EntityManager em = LifeCoachDao.instance.createEntityManager();
+	    EntityTransaction tx = em.getTransaction();
+	    tx.begin();
+	    em.persist(newHistory);
+	    tx.commit();
+	    LifeCoachDao.instance.closeConnections(em);
+	        
+	    return ls;
     } 
     
 	public static void refreshHealthMeasureHistory(Person p){
